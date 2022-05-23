@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddItemActivity">
+
+    <ImageView
+        android:id="@+id/productImage"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></ImageView>
+
+    <TextView
+        android:id="@+id/productTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Název produktu"
+        android:textSize="22dp"
+        android:maxLines="2"
+        android:ellipsize="end"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/productImage"
+        app:layout_constraintTop_toTopOf="parent"></TextView>
+
+    <TextView
+        android:id="@+id/shortDesc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Krátký popis"
+        android:maxLines="2"
+        android:ellipsize="end"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/productImage"
+        app:layout_constraintTop_toBottomOf="@+id/productTitle"></TextView>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Počet:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/productImage"></TextView>
+
+    <EditText
+        android:id="@+id/countInput"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        android:inputType="number"></EditText>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Minimální trvanlivost:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/countInput"></TextView>
+
+<!--    <EditText-->
+<!--        android:id="@+id/expirationInput"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textView2"-->
+<!--        android:inputType="date"></EditText>-->
+
+    <EditText
+        android:id="@+id/dateDay"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:hint="DD"
+        android:maxLength="2"
+        android:inputType="number"
+        app:layout_constraintEnd_toStartOf="@+id/dateMonth"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"></EditText>
+
+    <EditText
+        android:id="@+id/dateMonth"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:hint="MM"
+        android:maxLength="2"
+        android:inputType="number"
+        app:layout_constraintEnd_toStartOf="@+id/dateYear"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"></EditText>
+
+    <EditText
+        android:id="@+id/dateYear"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:hint="YYYY"
+        android:maxLength="4"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"></EditText>
+
+    <Button
+        android:id="@+id/addItemBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Přidat"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"></Button>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
