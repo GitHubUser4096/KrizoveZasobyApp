@@ -26,6 +26,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.util.Size;
 import android.view.MenuItem;
+import android.view.Surface;
 import android.widget.ImageButton;
 
 import com.google.common.util.concurrent.ListenableFuture;
@@ -119,8 +120,10 @@ public class TakePictureActivity extends AppCompatActivity implements CameraXCon
         Preview preview = new Preview.Builder().build();
         preview.setSurfaceProvider(previewView.getSurfaceProvider());
 
+//        if(previewView.getDisplay()==null) throw new RuntimeException("Display is null!");
         imageCapture = new ImageCapture.Builder()
-                .setTargetRotation(previewView.getDisplay().getRotation())
+//                .setTargetRotation(previewView.getDisplay().getRotation()) // TODO with this line, camera does not work sometimes
+                .setTargetRotation(Surface.ROTATION_0) // TODO is this OK? (app should always be in portrait, this should work fine)
                 .build();
 
         CameraSelector cameraSelector = new CameraSelector.Builder()

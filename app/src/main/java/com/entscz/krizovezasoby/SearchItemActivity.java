@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -34,8 +35,8 @@ public class SearchItemActivity extends AppCompatActivity {
         bagId = intent.getIntExtra("bagId", -1);
 
         EditText searchText = findViewById(R.id.searchText);
-        Button scanBtn = findViewById(R.id.scanCodeBtn);
-        Button addProductBtn = findViewById(R.id.addProductBtn);
+//        Button scanBtn = findViewById(R.id.scanCodeBtn);
+//        Button addProductBtn = findViewById(R.id.addProductBtn);
         ListView itemSuggestions = findViewById(R.id.itemSuggestions);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
@@ -95,22 +96,28 @@ public class SearchItemActivity extends AppCompatActivity {
             }
         });
 
-        scanBtn.setOnClickListener(view -> {
+//        scanBtn.setOnClickListener(view -> {
+//
+//            Intent scannerIntent = new Intent(SearchItemActivity.this, ScannerActivity.class);
+//            scannerIntent.putExtra("bagId", bagId);
+//            startActivity(scannerIntent);
+//
+//        });
 
-            Intent scannerIntent = new Intent(SearchItemActivity.this, ScannerActivity.class);
-            scannerIntent.putExtra("bagId", bagId);
-            startActivity(scannerIntent);
+//        addProductBtn.setOnClickListener(view -> {
+//
+//            Intent addProductIntent = new Intent(SearchItemActivity.this, AddProductActivity.class);
+//            addProductIntent.putExtra("bagId", bagId);
+//            startActivity(addProductIntent);
+//
+//        });
 
-        });
+    }
 
-        addProductBtn.setOnClickListener(view -> {
-
-            Intent addProductIntent = new Intent(SearchItemActivity.this, AddProductActivity.class);
-            addProductIntent.putExtra("bagId", bagId);
-            startActivity(addProductIntent);
-
-        });
-
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_search_item, menu);
+        return true;
     }
 
     @Override
@@ -118,6 +125,14 @@ public class SearchItemActivity extends AppCompatActivity {
 
         if(item.getItemId()==android.R.id.home){
             finish();
+            return true;
+        }
+
+        if(item.getItemId()==R.id.addProduct){
+            Intent addProductIntent = new Intent(this, AddProductActivity.class);
+            addProductIntent.putExtra("bagId", bagId);
+            startActivity(addProductIntent);
+            return true;
         }
 
         return super.onOptionsItemSelected(item);

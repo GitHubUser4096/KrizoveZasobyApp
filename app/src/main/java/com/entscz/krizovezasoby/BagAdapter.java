@@ -1,6 +1,7 @@
 package com.entscz.krizovezasoby;
 
 import android.app.Activity;
+import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,28 +73,28 @@ public class BagAdapter extends BaseAdapter {
 
         switch(bag.optString("state")){
             case "expired":
-                bagName.setBackgroundColor(context.getResources().getColor(R.color.expired));
-                bagName.setTextColor(context.getResources().getColor(R.color.white));
+                bagName.setBackgroundColor(context.getResources().getColor(R.color.expired, context.getTheme()));
+                bagName.setTextColor(context.getResources().getColor(R.color.white, context.getTheme()));
                 break;
             case "critical":
-                bagName.setBackgroundColor(context.getResources().getColor(R.color.critical));
-                bagName.setTextColor(context.getResources().getColor(R.color.white));
+                bagName.setBackgroundColor(context.getResources().getColor(R.color.critical, context.getTheme()));
+                bagName.setTextColor(context.getResources().getColor(R.color.white, context.getTheme()));
                 break;
             case "warn":
-                bagName.setBackgroundColor(context.getResources().getColor(R.color.warn));
-                bagName.setTextColor(context.getResources().getColor(R.color.black));
+                bagName.setBackgroundColor(context.getResources().getColor(R.color.warn, context.getTheme()));
+                bagName.setTextColor(context.getResources().getColor(R.color.black, context.getTheme()));
                 break;
             case "recommended":
-                bagName.setBackgroundColor(context.getResources().getColor(R.color.recommended));
-                bagName.setTextColor(context.getResources().getColor(R.color.black));
+                bagName.setBackgroundColor(context.getResources().getColor(R.color.recommended, context.getTheme()));
+                bagName.setTextColor(context.getResources().getColor(R.color.black, context.getTheme()));
                 break;
             case "empty":
-                bagName.setBackgroundColor(context.getResources().getColor(R.color.black));
-                bagName.setTextColor(context.getResources().getColor(R.color.gray));
+                bagName.setBackgroundColor(context.getResources().getColor(R.color.itemDefaultBG, context.getTheme()));
+                bagName.setTextColor(context.getResources().getColor(R.color.itemInactiveFG, context.getTheme()));
                 break;
             default:
-                bagName.setBackgroundColor(context.getResources().getColor(R.color.black));
-                bagName.setTextColor(context.getResources().getColor(R.color.white));
+                bagName.setBackgroundColor(context.getResources().getColor(R.color.itemDefaultBG, context.getTheme()));
+                bagName.setTextColor(context.getResources().getColor(R.color.itemDefaultFG, context.getTheme()));
                 break;
         }
 

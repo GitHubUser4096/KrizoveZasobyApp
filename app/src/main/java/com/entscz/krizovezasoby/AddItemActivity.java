@@ -41,39 +41,42 @@ public class AddItemActivity extends AppCompatActivity {
         TextView shortDescLabel = findViewById(R.id.shortDesc);
         Button addItemBtn = findViewById(R.id.addItemBtn);
         ImageView productImage = findViewById(R.id.productImage);
-        EditText countInput = findViewById(R.id.countInput);
-        EditText dateDay = findViewById(R.id.dateDay);
-        EditText dateMonth = findViewById(R.id.dateMonth);
-        EditText dateYear = findViewById(R.id.dateYear);
+//        EditText countInput = findViewById(R.id.countInput);
+//        EditText dateDay = findViewById(R.id.dateDay);
+//        EditText dateMonth = findViewById(R.id.dateMonth);
+//        EditText dateYear = findViewById(R.id.dateYear);
 //        EditText expirationInput = findViewById(R.id.expirationInput);
 
-        dateDay.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
-            @Override
-            public void afterTextChanged(Editable s) {
-                if(s.length()==2){
-                    dateMonth.requestFocus();
-                    dateMonth.selectAll();
-                }
-            }
-        });
+        Counter counter = findViewById(R.id.counter);
+        DateInput dateInput = findViewById(R.id.dateInput);
 
-        dateMonth.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
-            @Override
-            public void afterTextChanged(Editable s) {
-                if(s.length()==2){
-                    dateYear.requestFocus();
-                    dateYear.selectAll();
-                }
-            }
-        });
+//        dateDay.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//                if(s.length()==2){
+//                    dateMonth.requestFocus();
+//                    dateMonth.selectAll();
+//                }
+//            }
+//        });
+//
+//        dateMonth.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//                if(s.length()==2){
+//                    dateYear.requestFocus();
+//                    dateYear.selectAll();
+//                }
+//            }
+//        });
 
         Intent intent = getIntent();
         productId = intent.getIntExtra("productId", -1);
@@ -111,8 +114,8 @@ public class AddItemActivity extends AppCompatActivity {
 //            countInput.setText(""+item.optString("count"));
 //            expirationInput.setText(!item.isNull("expiration") ? item.optString("expiration") : "");
 
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            setTitle(itemName);
+//            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//            setTitle(itemName);
 
         } catch(Exception e){
             throw new RuntimeException(e);
@@ -122,26 +125,36 @@ public class AddItemActivity extends AppCompatActivity {
 
             try {
 
-                if(countInput.getText().toString().length()==0){
-                    throw new RuntimeException("Prosím zadejte počet!");
-                }
+//                if(countInput.getText().toString().length()==0){
+//                    throw new RuntimeException("Prosím zadejte počet!");
+//                }
 
-                int count = Integer.parseInt(countInput.getText().toString());
+//                int count = Integer.parseInt(countInput.getText().toString());
+                int count = counter.getValue();
 //                String expiration = expirationInput.getText().toString();
-                String expiration = getDate(dateDay.getText().toString(), dateMonth.getText().toString(), dateYear.getText().toString());
+//                String expiration = getDate(dateDay.getText().toString(), dateMonth.getText().toString(), dateYear.getText().toString());
+                String expiration = dateInput.getValue();
 
+                if(count<1) throw new RuntimeException("Počet musí být větší než 0!");
                 if(count>99999) throw new RuntimeException("Počet je příliš velký!");
 
-                Requests.POST("https://zasoby.nggcv.cz/api/item/addItem.php?bagId="+bagId,
-                        "productId="+productId+"&"+
-                                "count="+count+"&"+
-                                "expiration="+expiration
+//                Requests.POST("https://zasoby.nggcv.cz/api/item/addItem.php?bagId="+bagId,
+//                        "productId="+productId+"&"+
+//                                "count="+count+"&"+
+//                                "expiration="+expiration
+//                ).await();
+
+                Requests.POST("https://zasoby.nggcv.cz/api/item/addItem.php?bagId="+bagId, new Requests.Params()
+                        .add("productId", productId)
+                        .add("count", count)
+                        .add("expiration", expiration)
                 ).await();
 
                 Intent itemsIntent = new Intent(AddItemActivity.this, ItemsActivity.class);
                 itemsIntent.putExtra("bagId", bagId);
-                itemsIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                itemsIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(itemsIntent);
+                finish();
 
             } catch (Exception e){
 //                throw new RuntimeException(e);
@@ -201,6 +214,7 @@ public class AddItemActivity extends AppCompatActivity {
 
         if(item.getItemId()==android.R.id.home){
             finish();
+            // TODO return true here - everywhere?
         }
 
         return super.onOptionsItemSelected(item);

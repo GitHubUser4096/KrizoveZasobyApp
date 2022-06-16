@@ -21,6 +21,7 @@ public class BagInfoActivity extends AppCompatActivity {
 
     int bagId;
     String bagName;
+    boolean bagEmpty;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,7 @@ public class BagInfoActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         bagId = intent.getIntExtra("bagId", 0);
+        bagEmpty = intent.getBooleanExtra("isEmpty", false);
 
         try {
 
@@ -59,16 +61,22 @@ public class BagInfoActivity extends AppCompatActivity {
 
                 if(name.length()==0) throw new RuntimeException("Prosím zadejte název tašky!");
 
-                Requests.POST("https://zasoby.nggcv.cz/api/bag/updateInfo.php?bagId="+bagId,
-                        "name="+name+
-                                "&description="+description
+//                Requests.POST("https://zasoby.nggcv.cz/api/bag/updateInfo.php?bagId="+bagId,
+//                        "name="+name+
+//                                "&description="+description
+//                ).await();
+
+                Requests.POST("https://zasoby.nggcv.cz/api/bag/updateInfo.php?bagId="+bagId, new Requests.Params()
+                        .add("name", name)
+                        .add("description", description)
                 ).await();
 
 //                finish();
                 Intent itemsIntent = new Intent(BagInfoActivity.this, ItemsActivity.class);
                 itemsIntent.putExtra("bagId", bagId);
-                itemsIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                itemsIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(itemsIntent);
+                finish();
 
             } catch(Exception e){
                 Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -81,6 +89,7 @@ public class BagInfoActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_bag_info, menu);
+//        menu.getItem(0).setEnabled(false);
         return true;
     }
 
@@ -89,9 +98,15 @@ public class BagInfoActivity extends AppCompatActivity {
 
         if(item.getItemId()==android.R.id.home){
             finish();
+            return true;
         }
 
         if(item.getItemId()==R.id.deleteBag){
+
+            if(!bagEmpty){
+                Toast.makeText(this, "Taška není prázdná!", Toast.LENGTH_SHORT).show();
+                return true;
+            }
 
             new AlertDialog.Builder(this)
                     .setTitle(bagName)
@@ -104,8 +119,9 @@ public class BagInfoActivity extends AppCompatActivity {
                             Requests.POST("https://zasoby.nggcv.cz/api/bag/deleteBag.php?bagId="+bagId, "").await();
 
                             Intent bagsIntent = new Intent(BagInfoActivity.this, BagsActivity.class);
-                            bagsIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            bagsIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NO_ANIMATION);
                             startActivity(bagsIntent);
+                            finish();
 
                         } catch(Exception e){
                             Toast.makeText(this, "Nelze smazat tašku: "+e.getMessage(), Toast.LENGTH_SHORT).show();

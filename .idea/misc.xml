@@ -3,27 +3,43 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../layout/custom_preview.xml" value="0.38229166666666664" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2985" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.2985" />
-        <entry key="app/src/main/res/layout/activity_add_item.xml" value="0.29157759726378796" />
+        <entry key="app/src/main/res/layout/activity_add_item.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_add_product.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_bag_info.xml" value="0.31574074074074077" />
         <entry key="app/src/main/res/layout/activity_bags.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/activity_donate.xml" value="0.31574074074074077" />
+        <entry key="app/src/main/res/layout/activity_donate_bag.xml" value="0.16" />
         <entry key="app/src/main/res/layout/activity_edit_item.xml" value="0.31574074074074077" />
-        <entry key="app/src/main/res/layout/activity_items.xml" value="0.16" />
+        <entry key="app/src/main/res/layout/activity_items.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.31574074074074077" />
         <entry key="app/src/main/res/layout/activity_scanner.xml" value="0.29157759726378796" />
         <entry key="app/src/main/res/layout/activity_search_item.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_settings.xml" value="0.31574074074074077" />
         <entry key="app/src/main/res/layout/activity_take_picture.xml" value="0.15" />
         <entry key="app/src/main/res/layout/bag.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/charity_place.xml" value="0.31574074074074077" />
+        <entry key="app/src/main/res/layout/counter.xml" value="0.31574074074074077" />
+        <entry key="app/src/main/res/layout/date_input.xml" value="0.31574074074074077" />
+        <entry key="app/src/main/res/layout/dialog_add_item.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/dialog_move_item.xml" value="0.31574074074074077" />
+        <entry key="app/src/main/res/layout/dialog_use_item.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/donate_list.xml" value="0.31574074074074077" />
+        <entry key="app/src/main/res/layout/donate_map.xml" value="0.31574074074074077" />
         <entry key="app/src/main/res/layout/emptyHint.xml" value="0.31574074074074077" />
         <entry key="app/src/main/res/layout/empty_bags.xml" value="0.31574074074074077" />
         <entry key="app/src/main/res/layout/empty_items.xml" value="0.31574074074074077" />
-        <entry key="app/src/main/res/layout/item.xml" value="0.30324074074074076" />
+        <entry key="app/src/main/res/layout/item.xml" value="0.33" />
         <entry key="app/src/main/res/layout/menu_items.xml" value="0.16203703703703703" />
+        <entry key="app/src/main/res/layout/sample_counter.xml" value="0.30324074074074076" />
         <entry key="app/src/main/res/menu/menu_bagInfo.xml" value="0.16203703703703703" />
+        <entry key="app/src/main/res/menu/menu_bag_info.xml" value="0.31141552511415527" />
         <entry key="app/src/main/res/menu/menu_edit_item.xml" value="0.16203703703703703" />
         <entry key="app/src/main/res/menu/menu_items.xml" value="0.22" />
+        <entry key="app/src/main/res/menu/menu_scanner.xml" value="0.31574074074074077" />
+        <entry key="app/src/main/res/menu/menu_search_item.xml" value="0.31574074074074077" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2985" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2985" />
       </map>

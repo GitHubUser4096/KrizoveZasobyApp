@@ -212,16 +212,28 @@ public class AddProductActivity extends AppCompatActivity {
                 if(shortDesc.length()==0) throw new RuntimeException("Prosím vyplňte pole krátký popis!");
                 if(code.length()==0) throw new RuntimeException("Prosím vyplňte pole kód produktu!");
 
-                JSONObject product = new JSONObject(Requests.POST("https://zasoby.nggcv.cz/api/product/createProduct.php",
-                        "brand="+brand+
-                                "&type="+productType+
-                                "&amountValue="+amountValue+
-                                "&amountUnit="+amountUnit+
-                                "&shortDesc="+shortDesc+
-                                "&code="+code+
-                                "&packageType="+packageType+
-                                "&description="+description+
-                                (imgName!=null ? "&imgName="+imgName : "")
+//                JSONObject product = new JSONObject(Requests.POST("https://zasoby.nggcv.cz/api/product/createProduct.php",
+//                        "brand="+brand+
+//                                "&type="+productType+
+//                                "&amountValue="+amountValue+
+//                                "&amountUnit="+amountUnit+
+//                                "&shortDesc="+shortDesc+
+//                                "&code="+code+
+//                                "&packageType="+packageType+
+//                                "&description="+description+
+//                                (imgName!=null ? "&imgName="+imgName : "")
+//                ).await());
+
+                JSONObject product = new JSONObject(Requests.POST("https://zasoby.nggcv.cz/api/product/createProduct.php", new Requests.Params()
+                        .add("brand", brand)
+                        .add("type", productType)
+                        .add("amountValue", amountValue)
+                        .add("amountUnit", amountUnit)
+                        .add("shortDesc", shortDesc)
+                        .add("code", code)
+                        .add("packageType", packageType)
+                        .add("description", description)
+                        .add("imgName", (imgName!=null ? imgName : ""))
                 ).await());
 
                 Intent addItemIntent = new Intent(AddProductActivity.this, AddItemActivity.class);

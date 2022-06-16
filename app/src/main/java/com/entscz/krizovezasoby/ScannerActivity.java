@@ -23,6 +23,7 @@ import android.content.pm.PackageManager;
 import android.media.Image;
 import android.os.Bundle;
 import android.util.Size;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -190,12 +191,33 @@ public class ScannerActivity extends AppCompatActivity implements CameraXConfig.
         return Camera2Config.defaultConfig();
     }
 
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.menu_scanner, menu);
+//        return true;
+//    }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         if(item.getItemId()==android.R.id.home){
             finish();
+            return true;
         }
+
+//        if(item.getItemId()==R.id.searchProducts){
+//            Intent searchProductsIntent = new Intent(this, SearchItemActivity.class);
+//            searchProductsIntent.putExtra("bagId", bagId);
+//            startActivity(searchProductsIntent);
+//            return true;
+//        }
+//
+//        if(item.getItemId()==R.id.addProduct){
+//            Intent addProductIntent = new Intent(this, AddProductActivity.class);
+//            addProductIntent.putExtra("bagId", bagId);
+//            startActivity(addProductIntent);
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }

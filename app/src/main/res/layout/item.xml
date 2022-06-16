@@ -5,48 +5,163 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/count"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/baseLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="1"
-        android:textSize="24dp"
-        android:padding="10dp"></TextView>
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Název položky"
-        android:textSize="20dp"
-        android:maxLines="1"
-        android:ellipsize="end"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/count"
-        app:layout_constraintTop_toTopOf="parent"></TextView>
+        <TextView
+            android:id="@+id/count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="1"
+            android:textSize="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></TextView>
 
-    <TextView
-        android:id="@+id/shortDesc"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Krátký popis"
-        android:maxLines="1"
-        android:ellipsize="end"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/count"
-        app:layout_constraintTop_toBottomOf="@+id/title"></TextView>
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Název položky"
+            android:textSize="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/count"
+            app:layout_constraintTop_toTopOf="parent"></TextView>
 
-    <TextView
-        android:id="@+id/expiration"
-        android:layout_width="0dp"
+        <TextView
+            android:id="@+id/shortDesc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Krátký popis"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/count"
+            app:layout_constraintTop_toBottomOf="@+id/title"></TextView>
+
+        <TextView
+            android:id="@+id/expiration"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="DD. MM. YYYY"
+            android:textSize="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/count"
+            app:layout_constraintTop_toBottomOf="@+id/shortDesc"></TextView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/expandedLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="DD. MM. YYYY"
-        android:textSize="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/count"
-        app:layout_constraintTop_toBottomOf="@+id/shortDesc"></TextView>
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/productImage"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </ImageView>
+
+        <TextView
+            android:id="@+id/expandedCount"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="1"
+            android:textSize="24dp"
+            app:layout_constraintBottom_toBottomOf="@+id/expandedExpiration"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></TextView>
+
+        <TextView
+            android:id="@+id/expandedTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Název položky"
+            android:textSize="20dp"
+            app:layout_constraintEnd_toStartOf="@+id/expandedCount"
+            app:layout_constraintStart_toEndOf="@+id/productImage"
+            app:layout_constraintTop_toTopOf="parent"></TextView>
+
+        <TextView
+            android:id="@+id/expandedShortDesc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Krátký popis"
+            app:layout_constraintEnd_toStartOf="@+id/expandedCount"
+            app:layout_constraintStart_toEndOf="@+id/productImage"
+            app:layout_constraintTop_toBottomOf="@+id/expandedTitle"></TextView>
+
+        <TextView
+            android:id="@+id/expandedExpiration"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="DD. MM. YYYY"
+            android:textSize="16dp"
+            app:layout_constraintEnd_toStartOf="@+id/expandedCount"
+            app:layout_constraintStart_toEndOf="@+id/productImage"
+            app:layout_constraintTop_toBottomOf="@+id/expandedShortDesc"></TextView>
+
+        <ImageButton
+            android:id="@+id/editBtn"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:padding="5dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/edit"
+            android:tooltipText="Upravit"
+            app:layout_constraintStart_toStartOf="@+id/expandedExpiration"
+            app:layout_constraintTop_toBottomOf="@+id/expandedExpiration"></ImageButton>
+
+        <ImageButton
+            android:id="@+id/useBtn"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:padding="5dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/use"
+            android:tooltipText="Použít"
+            app:layout_constraintStart_toEndOf="@+id/editBtn"
+            app:layout_constraintTop_toTopOf="@+id/editBtn"></ImageButton>
+
+        <ImageButton
+            android:id="@+id/moveBtn"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:padding="5dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/move"
+            android:tooltipText="Přesunout"
+            app:layout_constraintStart_toEndOf="@+id/useBtn"
+            app:layout_constraintTop_toTopOf="@+id/useBtn"></ImageButton>
+
+        <ImageButton
+            android:id="@+id/deleteBtn"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:padding="5dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/delete"
+            android:tooltipText="Odstranit"
+            app:layout_constraintStart_toEndOf="@+id/moveBtn"
+            app:layout_constraintTop_toTopOf="@+id/moveBtn"></ImageButton>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

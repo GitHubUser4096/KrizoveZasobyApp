@@ -63,9 +63,14 @@ public class BagsActivity extends AppCompatActivity {
 
                 newBagInput.setText("");
 
-                JSONObject bag = new JSONObject(Requests.POST("https://zasoby.nggcv.cz/api/bag/createBag.php",
-                        "name="+name+
-                                "&description="
+//                JSONObject bag = new JSONObject(Requests.POST("https://zasoby.nggcv.cz/api/bag/createBag.php",
+//                        "name="+name+
+//                                "&description="
+//                ).await());
+
+                JSONObject bag = new JSONObject(Requests.POST("https://zasoby.nggcv.cz/api/bag/createBag.php", new Requests.Params()
+                        .add("name", name)
+                        .add("description", "")
                 ).await());
 
 //                recreate();
@@ -116,7 +121,8 @@ public class BagsActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
-        menu.add("Odhlásit se");
+        menu.add(0, 0, 0, "Odhlásit se");
+        menu.add(0, 1, 1, "Nastavení");
 
         return true;
     }
@@ -128,10 +134,18 @@ public class BagsActivity extends AppCompatActivity {
             SharedPreferences prefs = getSharedPreferences("login", Context.MODE_PRIVATE);
             prefs.edit().clear().apply();
             Intent loginIntent = new Intent(this, LoginActivity.class);
+            loginIntent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
             startActivity(loginIntent);
             finish();
+            return true;
         }
 
-        return true;
+        if(item.getItemId()==1){
+            Intent settingsIntent = new Intent(this, SettingsActivity.class);
+            startActivity(settingsIntent);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

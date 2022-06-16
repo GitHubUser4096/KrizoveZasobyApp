@@ -1,5 +1,6 @@
 package com.entscz.krizovezasoby;
 
+import android.app.ActivityOptions;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -40,47 +41,53 @@ public class EditItemActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_item);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setTitle("Upravit položku");
+
         ConstraintLayout layout = findViewById(R.id.root);
 
 //        TextView productNameView = findViewById(R.id.productName);
         TextView productTitleLabel = findViewById(R.id.productTitle);
         TextView shortDescLabel = findViewById(R.id.shortDesc);
         ImageView productImage = findViewById(R.id.productImage);
-        EditText countInput = findViewById(R.id.countInput);
+//        EditText countInput = findViewById(R.id.countInput);
 //        EditText expirationInput = findViewById(R.id.expirationInput);
-        EditText dateDay = findViewById(R.id.dateDay);
-        EditText dateMonth = findViewById(R.id.dateMonth);
-        EditText dateYear = findViewById(R.id.dateYear);
+//        EditText dateDay = findViewById(R.id.dateDay);
+//        EditText dateMonth = findViewById(R.id.dateMonth);
+//        EditText dateYear = findViewById(R.id.dateYear);
 //        ImageButton deleteBtn = findViewById(R.id.deleteBtn);
         Button saveBtn = findViewById(R.id.saveBtn);
 
-        dateDay.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
-            @Override
-            public void afterTextChanged(Editable s) {
-                if(s.length()==2){
-                    dateMonth.requestFocus();
-                    dateMonth.selectAll();
-                }
-            }
-        });
+        Counter counter = findViewById(R.id.counter);
+        DateInput dateInput = findViewById(R.id.dateInput);
 
-        dateMonth.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
-            @Override
-            public void afterTextChanged(Editable s) {
-                if(s.length()==2){
-                    dateYear.requestFocus();
-                    dateYear.selectAll();
-                }
-            }
-        });
+//        dateDay.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//                if(s.length()==2){
+//                    dateMonth.requestFocus();
+//                    dateMonth.selectAll();
+//                }
+//            }
+//        });
+//
+//        dateMonth.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//                if(s.length()==2){
+//                    dateYear.requestFocus();
+//                    dateYear.selectAll();
+//                }
+//            }
+//        });
 
         Intent intent = getIntent();
         bagId = intent.getIntExtra("bagId", -1);
@@ -112,17 +119,19 @@ public class EditItemActivity extends AppCompatActivity {
             } else {
                 productImage.setImageResource(android.R.drawable.ic_menu_help);
             }
-            countInput.setText(""+item.optString("count"));
+//            countInput.setText(""+item.optString("count"));
+            counter.setValue(item.optInt("count"));
 //            expirationInput.setText(!item.isNull("expiration") ? item.optString("expiration") : "");
             if(!item.isNull("expiration")){
                 Date date = new SimpleDateFormat("yyyy-MM-dd").parse(item.optString("expiration"));
-                dateDay.setText(""+date.getDate());
-                dateMonth.setText(""+(date.getMonth()+1));
-                dateYear.setText(""+(date.getYear()+1900));
+//                dateDay.setText(""+date.getDate());
+//                dateMonth.setText(""+(date.getMonth()+1));
+//                dateYear.setText(""+(date.getYear()+1900));
+                dateInput.setValue(date.getDate(), date.getMonth()+1, date.getYear()+1900);
+
             }
 
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            setTitle(itemName);
+//            setTitle(itemName);
 
         } catch(Exception e){
             throw new RuntimeException(e);
@@ -161,31 +170,39 @@ public class EditItemActivity extends AppCompatActivity {
 
             try {
 
-                if(countInput.getText().toString().length()==0){
-                    throw new RuntimeException("Prosím zadejte počet!");
-                }
+//                if(countInput.getText().toString().length()==0){
+//                    throw new RuntimeException("Prosím zadejte počet!");
+//                }
 
-                int newCount = Integer.parseInt(countInput.getText().toString());
+//                int newCount = Integer.parseInt(countInput.getText().toString());
+                int newCount = counter.getValue();
 //                String newExpiration = expirationInput.getText().toString();
-                String newExpiration = getDate(dateDay.getText().toString(), dateMonth.getText().toString(), dateYear.getText().toString());
+//                String newExpiration = getDate(dateDay.getText().toString(), dateMonth.getText().toString(), dateYear.getText().toString());
+                String newExpiration = dateInput.getValue();
 
+                if(newCount<1) throw new RuntimeException("Počet musí být větší než 0!");
                 if(newCount>99999) throw new RuntimeException("Počet je příliš velký!");
 
-                Requests.POST("https://zasoby.nggcv.cz/api/item/editItem.php?itemId="+itemId,
-                                "count="+newCount+
-                                "&expiration="+newExpiration
+//                Requests.POST("https://zasoby.nggcv.cz/api/item/editItem.php?itemId="+itemId,
+//                                "count="+newCount+
+//                                "&expiration="+newExpiration
+//                ).await();
+
+                Requests.POST("https://zasoby.nggcv.cz/api/item/editItem.php?itemId="+itemId, new Requests.Params()
+                        .add("count", newCount)
+                        .add("expiration", newExpiration)
                 ).await();
 
                 Intent itemsIntent = new Intent(EditItemActivity.this, ItemsActivity.class);
                 itemsIntent.putExtra("bagId", bagId);
-                itemsIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                itemsIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(itemsIntent);
-//                finish();
+                finish();
 
             } catch (Exception e){
 //                throw new RuntimeException(e);
-//                Toast.makeText(EditItemActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                Snackbar.make(layout, e.getMessage(), Snackbar.LENGTH_SHORT).show();
+                Toast.makeText(EditItemActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+//                Snackbar.make(layout, e.getMessage(), Snackbar.LENGTH_SHORT).show();
             }
 
         });
@@ -234,11 +251,11 @@ public class EditItemActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_edit_item, menu);
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.menu_edit_item, menu);
+//        return true;
+//    }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -257,12 +274,14 @@ public class EditItemActivity extends AppCompatActivity {
 
                         try {
 
-                            Requests.POST("https://zasoby.nggcv.cz/api/item/deleteItem.php?itemId="+itemId, "").await();
+//                            Requests.POST("https://zasoby.nggcv.cz/api/item/deleteItem.php?itemId="+itemId, "").await();
+                            Requests.POST("https://zasoby.nggcv.cz/api/item/deleteItem.php?itemId="+itemId, new Requests.Params()).await();
 
                             Intent itemsIntent = new Intent(EditItemActivity.this, ItemsActivity.class);
                             itemsIntent.putExtra("bagId", bagId);
-                            itemsIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            itemsIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
                             startActivity(itemsIntent);
+                            finish();
 
                         } catch(Exception e){
                             throw new RuntimeException(e.getMessage());

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="dim">#AA000000</color>
+    <color name="itemDefaultBG">#FF000000</color>
+    <color name="itemDefaultFG">#FFFFFFFF</color>
+    <color name="itemInactiveFG">#FF777777</color>
+</resources>

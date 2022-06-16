@@ -37,30 +37,23 @@
         app:layout_constraintStart_toEndOf="@+id/productImage"
         app:layout_constraintTop_toBottomOf="@+id/productTitle"></TextView>
 
+    <!--    <EditText-->
+<!--        android:id="@+id/countInput"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:inputType="number"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textView"></EditText>-->
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Počet:"
+        app:layout_constraintBottom_toBottomOf="@+id/counter"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/productImage"></TextView>
-
-    <EditText
-        android:id="@+id/countInput"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"></EditText>
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Minimální trvanlivost:"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/countInput"></TextView>
+        app:layout_constraintTop_toTopOf="@+id/counter"></TextView>
 
     <!--    <EditText-->
     <!--        android:id="@+id/expirationInput"-->
@@ -101,35 +94,58 @@
     <!--        app:layout_constraintStart_toStartOf="parent"-->
     <!--        app:layout_constraintTop_toBottomOf="@+id/expirationInput"></ImageButton>-->
 
-    <EditText
-        android:id="@+id/dateDay"
-        android:layout_width="50dp"
+    <com.entscz.krizovezasoby.Counter
+        android:id="@+id/counter"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="DD"
-        android:maxLength="2"
-        android:inputType="number"
-        app:layout_constraintEnd_toStartOf="@+id/dateMonth"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"></EditText>
-
-    <EditText
-        android:id="@+id/dateMonth"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:hint="MM"
-        android:maxLength="2"
-        android:inputType="number"
-        app:layout_constraintEnd_toStartOf="@+id/dateYear"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"></EditText>
-
-    <EditText
-        android:id="@+id/dateYear"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:hint="YYYY"
-        android:maxLength="4"
-        android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"></EditText>
+        app:layout_constraintTop_toBottomOf="@+id/productImage"></com.entscz.krizovezasoby.Counter>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Minimální trvanlivost:"
+        app:layout_constraintBottom_toBottomOf="@+id/dateInput"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/dateInput"></TextView>
+
+    <com.entscz.krizovezasoby.DateInput
+        android:id="@+id/dateInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/counter"></com.entscz.krizovezasoby.DateInput>
+
+<!--    <EditText-->
+<!--        android:id="@+id/dateDay"-->
+<!--        android:layout_width="50dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:hint="DD"-->
+<!--        android:maxLength="2"-->
+<!--        android:inputType="number"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/dateMonth"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textView2"></EditText>-->
+
+<!--    <EditText-->
+<!--        android:id="@+id/dateMonth"-->
+<!--        android:layout_width="50dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:hint="MM"-->
+<!--        android:maxLength="2"-->
+<!--        android:inputType="number"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/dateYear"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textView2"></EditText>-->
+
+<!--    <EditText-->
+<!--        android:id="@+id/dateYear"-->
+<!--        android:layout_width="100dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:hint="YYYY"-->
+<!--        android:maxLength="4"-->
+<!--        android:inputType="number"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textView2"></EditText>-->
 
     <Button
         android:id="@+id/saveBtn"
