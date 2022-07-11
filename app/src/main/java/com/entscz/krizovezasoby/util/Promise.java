@@ -10,16 +10,15 @@ public abstract class Promise<ResultType> {
 	
 	public Promise() {
 		
-		thread = new Thread() {
-			@Override
-			public void run() {
-				try {
-					result = execute();
-				} catch(Exception e) {
-					exception = new RuntimeException(e.getMessage());
-				}
+		thread = new Thread(()->{
+			try {
+				result = execute();
+			} catch(RuntimeException e) {
+				exception = e;
+			} catch(Exception e){
+				exception = new RuntimeException(e);
 			}
-		};
+		});
 		
 		thread.start();
 		

@@ -4,23 +4,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ItemsActivity">
+    tools:context=".activities.ItemsActivity">
 
-<!--    <TextView-->
-<!--        android:id="@+id/textView22"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Řazení:"-->
-<!--        app:layout_constraintBottom_toBottomOf="@+id/sortSpinner"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"></TextView>-->
+    <TextView
+        android:id="@+id/textView23"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Název:"
+        app:layout_constraintBottom_toBottomOf="@+id/displaySpinner"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/displaySpinner"></TextView>
 
-<!--    <Spinner-->
-<!--        android:id="@+id/sortSpinner"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/textView22"-->
-<!--        app:layout_constraintTop_toTopOf="parent"></Spinner>-->
+    <Spinner
+        android:id="@+id/displaySpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@+id/textView23"
+        app:layout_constraintTop_toTopOf="parent"></Spinner>
+
+    <TextView
+        android:id="@+id/textView22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Řazení:"
+        app:layout_constraintBottom_toBottomOf="@+id/sortSpinner"
+        app:layout_constraintStart_toEndOf="@+id/displaySpinner"
+        app:layout_constraintTop_toTopOf="@+id/sortSpinner"></TextView>
+
+    <Spinner
+        android:id="@+id/sortSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@+id/textView22"
+        app:layout_constraintTop_toTopOf="parent"></Spinner>
 
     <ListView
         android:id="@+id/itemList"
@@ -28,15 +44,8 @@
         android:layout_height="0dp"
         android:drawSelectorOnTop="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/displaySpinner"
         tools:layout_editor_absoluteX="115dp"></ListView>
-
-<!--    <Button-->
-<!--        android:id="@+id/addItemBtn"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Přidat položku"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"></Button>-->
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addItemFab"
@@ -54,13 +63,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/dim"
-        android:visibility="gone">
+        android:visibility="gone"
+        >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
+            android:padding="6dp"
             android:text="Najít produkt"
+            android:textSize="18dp"
+            android:textColor="@color/black"
+            android:background="@color/foreground"
             app:layout_constraintBottom_toBottomOf="@+id/searchProductFab"
             app:layout_constraintEnd_toStartOf="@+id/searchProductFab"
             app:layout_constraintTop_toTopOf="@+id/searchProductFab"></TextView>
@@ -79,7 +93,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
+            android:padding="6dp"
             android:text="Skenovat kód"
+            android:textSize="18dp"
+            android:textColor="@color/black"
+            android:background="@color/foreground"
             app:layout_constraintBottom_toBottomOf="@+id/scanCodeFab"
             app:layout_constraintEnd_toStartOf="@+id/scanCodeFab"
             app:layout_constraintTop_toTopOf="@+id/scanCodeFab"></TextView>

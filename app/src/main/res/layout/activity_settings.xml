@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
-    tools:context=".SettingsActivity">
+    tools:context=".activities.SettingsActivity">
 
     <TextView
         android:id="@+id/textView16"
@@ -40,6 +40,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:inputType="number"
+            android:maxLength="5"
             app:layout_constraintEnd_toStartOf="@+id/criticalUnit"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView17"></EditText>
@@ -69,6 +70,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:inputType="number"
+            android:maxLength="5"
             app:layout_constraintEnd_toStartOf="@+id/warnUnit"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView19"></EditText>
@@ -98,6 +100,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:inputType="number"
+            android:maxLength="5"
             app:layout_constraintEnd_toStartOf="@+id/recommendedUnit"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView20"></EditText>

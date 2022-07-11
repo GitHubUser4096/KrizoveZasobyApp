@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SearchItemActivity">
+    tools:context=".activities.SearchItemActivity">
 
     <EditText
         android:id="@+id/searchText"
@@ -16,25 +16,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"></EditText>
 
-<!--    <Button-->
-<!--        android:id="@+id/scanCodeBtn"-->
-<!--        android:layout_width="64dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:icon="@android:drawable/ic_menu_camera"-->
-<!--        app:layout_constraintEnd_toStartOf="@+id/addProductBtn"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        android:tooltipText="Skenovat kód"-->
-<!--        android:contentDescription="Skenovat kód"></Button>-->
-
-<!--    <Button-->
-<!--        android:id="@+id/addProductBtn"-->
-<!--        android:layout_width="64dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:icon="@android:drawable/ic_input_add"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        android:tooltipText="Přidat produkt"-->
-<!--        android:contentDescription="Přidat produkt"></Button>-->
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/progress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        app:minHideDelay="500"
+        app:layout_constraintTop_toBottomOf="@+id/searchText"
+        tools:layout_editor_absoluteX="0dp"></com.google.android.material.progressindicator.LinearProgressIndicator>
 
     <ListView
         android:id="@+id/itemSuggestions"
@@ -42,6 +31,6 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchText"></ListView>
+        app:layout_constraintTop_toBottomOf="@+id/progress"></ListView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

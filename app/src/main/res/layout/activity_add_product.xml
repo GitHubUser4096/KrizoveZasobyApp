@@ -4,25 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddProductActivity"
+    tools:context=".activities.AddProductActivity"
     android:id="@+id/layout">
-
-    <TextView
-        android:id="@+id/errorMsg"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:height="0dp"
-        android:background="@color/errorBackground"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="18dp"
-        app:layout_constraintTop_toTopOf="parent"></TextView>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/submitBtn"
-        app:layout_constraintTop_toBottomOf="@id/errorMsg">
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

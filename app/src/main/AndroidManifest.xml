@@ -19,7 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.KrizovéZásoby">
         <activity
-            android:name=".DonateBagActivity"
+            android:name=".activities.DonateBagActivity"
             android:exported="false" />
         <activity
             android:name=".TempDonateActivity"
@@ -43,22 +43,22 @@
             android:exported="false"
             android:theme="@style/Theme.KrizovéZásoby.Transparent" />
         <activity
-            android:name=".SettingsActivity"
+            android:name=".activities.SettingsActivity"
             android:exported="false" />
         <activity
-            android:name=".TakePictureActivity"
+            android:name=".activities.TakePictureActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".BagInfoActivity"
+            android:name=".activities.BagInfoActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".AddProductActivity"
+            android:name=".activities.AddProductActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".activities.LoginActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -68,27 +68,27 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".BagsActivity"
+            android:name=".activities.BagsActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ScannerActivity"
+            android:name=".activities.ScannerActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".AddItemActivity"
+            android:name=".activities.AddItemActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".EditItemActivity"
+            android:name=".activities.EditItemActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SearchItemActivity"
+            android:name=".activities.SearchItemActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ItemsActivity"
+            android:name=".activities.ItemsActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
     </application>

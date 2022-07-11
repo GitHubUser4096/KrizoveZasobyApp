@@ -5,16 +5,16 @@
     android:layout_height="match_parent">
 
     <item
-        android:id="@+id/donateBag"
-        android:title="Odevzdat tašku"
-        android:tooltipText="Odevzdat tašku"></item>
-
-    <item
         android:id="@+id/editBag"
         android:title="Upravit tašku"
         android:icon="@android:drawable/ic_menu_edit"
         app:showAsAction="always"
         android:tooltipText="Upravit tašku"
         ></item>
+
+    <item
+        android:id="@+id/donateBag"
+        android:title="Odevzdat tašku"
+        android:tooltipText="Odevzdat tašku"></item>
 
 </menu>

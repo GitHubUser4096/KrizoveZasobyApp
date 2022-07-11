@@ -24,15 +24,6 @@ public class StreamReader {
 
             return new String(bytes, StandardCharsets.UTF_8);
 
-//            StringBuilder bld = new StringBuilder();
-//
-//            int i;
-//            while ((i = is.read()) >= 0) {
-//                bld.append((char) i);
-//            }
-//
-//            return bld.toString();
-
         } catch(Exception e){
             throw new RuntimeException(e);
         }

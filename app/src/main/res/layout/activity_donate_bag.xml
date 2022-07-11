@@ -4,14 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DonateBagActivity">
-
-<!--    <TextView-->
-<!--        android:id="@+id/textView22"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Charity:"-->
-<!--        app:layout_constraintTop_toTopOf="parent"></TextView>-->
+    tools:context=".activities.DonateBagActivity">
 
     <ListView
         android:id="@+id/charityList"

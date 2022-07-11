@@ -1,8 +1,11 @@
 package com.entscz.krizovezasoby.util;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
+
+import com.entscz.krizovezasoby.LoginManager;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -16,6 +19,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Requests {
+
+	// TODO debug thing, remove for release?
+	public static int THROTTLE_TIME = 0;
 
 	public static class Params{
 		private HashMap<String, String> params;
@@ -40,33 +46,69 @@ public class Requests {
 		}
 	}
 
-	private static HashMap<String, Bitmap> bitmaps = new HashMap<>();
-	
-	static {
-		CookieHandler.setDefault(new CookieManager());
+	public static class HTTPError extends RuntimeException {
+		public final int statusCode;
+		public final String message;
+		public HTTPError(int statusCode, String message){
+			super(statusCode+" "+message);
+			this.statusCode = statusCode;
+			this.message = message;
+		}
 	}
 
+	public static class NetworkError extends RuntimeException {
+		public NetworkError(){
+			super("Chyba připojení k serveru!");
+		}
+	}
+
+//	public static void init(Context context){
+//		cookieManager = new CookieManager();
+//		CookieHandler.setDefault(cookieManager);
+//	}
+//
+	private static HashMap<String, Bitmap> bitmapCache = new HashMap<>();
+//	private static CookieManager cookieManager;
+	
+//	static {
+//		CookieHandler.setDefault(new CookieManager());
+//	}
+
 	public static Promise<String> GET(String url) {
-		
+
 		return new Promise<String>() {
 			@Override
 			public String execute() {
 				
 				try {
 
+					if(THROTTLE_TIME>0) Timer.sleep(THROTTLE_TIME);
+
 					HttpURLConnection conn = (HttpURLConnection)new URL(url).openConnection();
-					
-					if(conn.getResponseCode()>=400) {
+
+					int code = conn.getResponseCode();
+
+					if(code==401){
+						LoginManager.login(true);
+						Log.i(getClass().getName(), "Received 401 - requesting reauth!");
+						return GET(url).await();
+					}
+
+					if(code>=400) {
 						InputStream es = conn.getErrorStream();
-						throw new RuntimeException(StreamReader.readStream(es));
+						String msg = StreamReader.readStream(es);
+						Log.e(getClass().getName(), "HTTP error: "+code+" "+msg);
+						throw new HTTPError(code, msg);
 					}
 					
 					InputStream is = conn.getInputStream();
 					return StreamReader.readStream(is);
 					
+				} catch(HTTPError e) {
+					throw e;
 				} catch(Exception e) {
-					Log.e("Requests", "GET "+url+" failed: "+e.getMessage());
-					throw new RuntimeException(e.getMessage());
+					Log.e(getClass().getName(), "GET "+url+" failed: "+e.getMessage());
+					throw new NetworkError();
 				}
 				
 			}
@@ -80,67 +122,46 @@ public class Requests {
 			@Override
 			public Bitmap execute() {
 
-				if(bitmaps.containsKey(url)){
-					return bitmaps.get(url);
+				if(bitmapCache.containsKey(url)){
+					return bitmapCache.get(url);
 				}
 
 				try {
 
+					if(THROTTLE_TIME>0) Timer.sleep(THROTTLE_TIME);
+
 					HttpURLConnection conn = (HttpURLConnection)new URL(url).openConnection();
 
-					if(conn.getResponseCode()>=400) {
+					int code = conn.getResponseCode();
+
+					if(code==401){
+						LoginManager.login(true);
+						Log.i(getClass().getName(), "Received 401 - requesting reauth!");
+						return GET_BITMAP(url).await();
+					}
+
+					if(code>=400) {
 						InputStream es = conn.getErrorStream();
-						throw new RuntimeException(StreamReader.readStream(es));
+						String msg = StreamReader.readStream(es);
+						Log.e(getClass().getName(), "HTTP error: "+code+" "+msg);
+						throw new HTTPError(code, msg);
 					}
 
 					InputStream is = conn.getInputStream();
-//					return StreamReader.readStream(is);
 					Bitmap bitmap = BitmapFactory.decodeStream(is);
-					bitmaps.put(url, bitmap);
+					bitmapCache.put(url, bitmap);
 					return bitmap;
 
+				} catch(HTTPError e) {
+					throw e;
 				} catch(Exception e) {
-					Log.e("Requests", "GET "+url+" failed: "+e.getMessage());
-					throw new RuntimeException(e.getMessage());
+					Log.e(getClass().getName(), "GET_BITMAP "+url+" failed: "+e.getMessage());
+					throw new NetworkError();
 				}
 
 			}
 		};
 
-	}
-
-	/** Use POST(String url, Params params) instead **/
-	@Deprecated
-	public static Promise<String> POST(String url, String params) {
-		
-		return new Promise<String>() {
-			@Override
-			public String execute() {
-				
-				try {
-
-					HttpURLConnection conn = (HttpURLConnection)new URL(url).openConnection();
-					conn.setDoOutput(true);
-					
-					OutputStream os = conn.getOutputStream();
-					os.write(params.getBytes());
-					
-					if(conn.getResponseCode()>=400) {
-						InputStream es = conn.getErrorStream();
-						throw new RuntimeException(StreamReader.readStream(es));
-					}
-					
-					InputStream is = conn.getInputStream();
-					return StreamReader.readStream(is);
-					
-				} catch(Exception e) {
-					Log.e("Requests", "POST "+url+" failed: "+e.getMessage());
-					throw new RuntimeException(e.getMessage());
-				}
-				
-			}
-		};
-		
 	}
 
 	public static Promise<String> POST(String url, Params params) {
@@ -151,23 +172,37 @@ public class Requests {
 
 				try {
 
+					if(THROTTLE_TIME>0) Timer.sleep(THROTTLE_TIME);
+
 					HttpURLConnection conn = (HttpURLConnection)new URL(url).openConnection();
 					conn.setDoOutput(true);
 
 					OutputStream os = conn.getOutputStream();
 					os.write(params.toString().getBytes());
 
-					if(conn.getResponseCode()>=400) {
+					int code = conn.getResponseCode();
+
+					if(code==401){
+						LoginManager.login(true);
+						Log.i(getClass().getName(), "Received 401 - requesting reauth!");
+						return POST(url, params).await();
+					}
+
+					if(code>=400) {
 						InputStream es = conn.getErrorStream();
-						throw new RuntimeException(StreamReader.readStream(es));
+						String msg = StreamReader.readStream(es);
+						Log.e(getClass().getName(), "HTTP error: "+code+" "+msg);
+						throw new HTTPError(code, msg);
 					}
 
 					InputStream is = conn.getInputStream();
 					return StreamReader.readStream(is);
 
+				} catch(HTTPError e) {
+					throw e;
 				} catch(Exception e) {
 					Log.e("Requests", "POST "+url+" failed: "+e.getMessage());
-					throw new RuntimeException(e.getMessage());
+					throw new NetworkError();
 				}
 
 			}
@@ -183,6 +218,8 @@ public class Requests {
 
 				try {
 
+					if(THROTTLE_TIME>0) Timer.sleep(THROTTLE_TIME);
+
 					String boundary = Long.toHexString(System.currentTimeMillis());
 
 					HttpURLConnection conn = (HttpURLConnection)new URL(url).openConnection();
@@ -190,7 +227,6 @@ public class Requests {
 					conn.setRequestProperty("Content-Type", "multipart/form-data; boundary="+boundary);
 
 					OutputStream os = conn.getOutputStream();
-//					os.write(params.getBytes());
 
 					String prefix = "--"+boundary+"\n"+
 							"Content-Disposition: form-data; name=\""+fieldName+"\"; filename=\""+fileName+"\"\n"+
@@ -203,17 +239,29 @@ public class Requests {
 					os.write(data);
 					os.write(postfix.getBytes());
 
-					if(conn.getResponseCode()>=400) {
+					int code = conn.getResponseCode();
+
+					if(code==401){
+						LoginManager.login(true);
+						Log.i(getClass().getName(), "Received 401 - requesting reauth!");
+						return POST_DATA(url, fieldName, fileName, contentType, data).await();
+					}
+
+					if(code>=400) {
 						InputStream es = conn.getErrorStream();
-						throw new RuntimeException(StreamReader.readStream(es));
+						String msg = StreamReader.readStream(es);
+						Log.e(getClass().getName(), "HTTP error: "+code+" "+msg);
+						throw new HTTPError(code, msg);
 					}
 
 					InputStream is = conn.getInputStream();
 					return StreamReader.readStream(is);
 
+				} catch(HTTPError e) {
+					throw e;
 				} catch(Exception e) {
-					Log.e("Requests", "POST "+url+" failed: "+e.getMessage());
-					throw new RuntimeException(e.getMessage());
+					Log.e(getClass().getName(), "POST_DATA "+url+" failed: "+e.getMessage());
+					throw new NetworkError();
 				}
 
 			}

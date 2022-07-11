@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/useItemDialog"
     android:padding="20dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -14,54 +15,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/counter"></TextView>
 
-    <com.entscz.krizovezasoby.Counter
+    <com.entscz.krizovezasoby.views.Counter
         android:id="@+id/counter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></com.entscz.krizovezasoby.Counter>
-
-<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:padding="10dp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent">-->
-
-<!--        <Button-->
-<!--            android:id="@+id/decrementBtn"-->
-<!--            android:layout_width="60dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:minWidth="0dp"-->
-<!--            android:text="-"-->
-<!--            android:textSize="32dp"-->
-<!--            app:layout_constraintBottom_toBottomOf="@+id/incrementBtn"-->
-<!--            app:layout_constraintEnd_toStartOf="@+id/countInput"></Button>-->
-
-<!--        <EditText-->
-<!--            android:id="@+id/countInput"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:minWidth="80dp"-->
-<!--            android:textSize="32dp"-->
-<!--            android:textAlignment="center"-->
-<!--            android:inputType="number"-->
-<!--            android:text="1"-->
-<!--            app:layout_constraintBottom_toBottomOf="@+id/incrementBtn"-->
-<!--            app:layout_constraintEnd_toStartOf="@+id/incrementBtn"-->
-<!--            app:layout_constraintTop_toTopOf="@+id/incrementBtn"></EditText>-->
-
-<!--        <Button-->
-<!--            android:id="@+id/incrementBtn"-->
-<!--            android:layout_width="60dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:minWidth="0dp"-->
-<!--            android:text="+"-->
-<!--            android:textSize="32dp"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent"></Button>-->
-
-<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
+        app:layout_constraintTop_toTopOf="parent"></com.entscz.krizovezasoby.views.Counter>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
